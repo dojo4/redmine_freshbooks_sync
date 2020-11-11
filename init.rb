@@ -13,7 +13,7 @@ Redmine::Plugin.register :redmine_freshbooks_sync do
   name 'Freshbooks Sync'
   author 'Jeremy Hinegardner'
   description 'This is a Redmine // Freshbooks Synchronization tool'
-  version '0.0.1'
+  version '0.5.0'
   url 'https://github.com/dojo4/redmine_freshbooks_sync'
   author_url 'https://github.com/copiousfreetime'
 
