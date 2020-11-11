@@ -43,7 +43,7 @@
             <% if time_entry.needs_freshbooks_push? then %>
               <%= button_to(t(".push"), push_one_freshbooks_time_entry_path(time_entry)) %>
             <% else %>
-              <%= link_to(time_entry.freshbooks_time_entry.upstream_id.to_s, time_entry.freshbooks_time_entry.url) %>
+              <%= link_to(time_entry.freshbooks_time_entry.upstream_id.to_s, time_entry.freshbooks_time_entry.url, target: "_blank") %>
             <% end %>
           </td>
         </tr>
