@@ -1,0 +1,27 @@
+<%= render partial: 'freshbooks/tabs', locals: { name: 'identity' } %>
+
+<section class="freshbooks-content">
+<% if business.present? then %>
+  <div class="content-block">
+    <h3><%= business['name'] %></h3>
+    <p>
+      <%= business.dig('address', 'street') %><br />
+      <%= business.dig('address', 'city') %>, <%= business.dig('address', 'province') %><br />
+      <%= business.dig('address', 'postal_code') %><br />
+      <%= business.dig('address', 'country') %><br />
+    </p>
+  </div>
+<% end %>
+
+  <div class="content-block">
+    <h3>Freshbooks Links</h3>
+    <ul>
+      <li><%= link_to t('.dashboard'), 'https://my.freshbooks.com/#/dashboard', target: '_blank' %></li>
+      <li><%= link_to t('.projects'), 'https://my.freshbooks.com/#/projects', target: '_blank' %></li>
+      <li><%= link_to t('.time_tracking'), 'https://my.freshbooks.com/#/time-tracking', target: '_blank' %></li>
+      <li><%= link_to t('.invoices'), 'https://my.freshbooks.com/#/invoices', target: '_blank' %></li>
+      <li><%= link_to t('.developer_portal'), 'https://my.freshbooks.com/#/developer', target: '_blank' %></li>
+    </ul>
+  </div>
+</section>
+

@@ -1,0 +1,21 @@
+#admin-menu .freshbooks::before {
+  content: "F";
+}
+
+.freshbooks-content {
+  display: flex;
+}
+
+.freshbooks-content .content-block {
+  padding: 2em;
+}
+
+.freshbooks-button-group {
+  display: flex;
+  align-items: center;
+}
+
+.freshbooks-button {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}

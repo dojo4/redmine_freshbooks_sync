@@ -1,0 +1,9 @@
+<%=
+  render partial: 'list',
+         layout: 'layouts/base',
+         locals: {
+           projects: @projects,
+           freshbooks_projects: @freshbooks_projects,
+           last_synced_at: @last_synced_at,
+         }
+%>

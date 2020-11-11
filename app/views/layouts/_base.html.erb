@@ -1,0 +1,12 @@
+<div class="contextual">
+<% if !@freshbooks_client.authorized? then %>
+  <%= button_to(t('freshbooks.authorize_with_freshbooks'), authorize_freshbooks_path, method: :post) %>
+<% elsif @freshbooks_client.expired? then %>
+  <%= button_to(t('freshbooks.reauthorize_with_freshbooks'), authorize_freshbooks_path, method: :post) %>
+<% end %>
+  <%= link_to(t('freshbooks.configuration'), plugin_settings_path(id: :redmine_freshbooks_sync)) %>
+</div>
+
+<h2>Freshbooks</h2>
+
+<%= yield %>

@@ -1,0 +1,69 @@
+<%= render partial: 'freshbooks/tabs', locals: { name: 'projects' } %>
+
+<p>
+<% if last_synced_at then %>
+  <%= t("freshbooks.last_synchronization") %> : <%= I18n.l(last_synced_at, format: :short) %>
+<% end %>
+</p>
+
+<%= button_to t('freshbooks_projects.sync_projects'), sync_freshbooks_projects_path %>
+
+<%
+  if freshbooks_projects.any? then 
+    options = "<option value=\"\">#{t('freshbooks_projects.select_a_project')}</option>"
+    options += options_from_collection_for_select(freshbooks_projects, :id, :title )
+
+%>
+  <table class="list projects odd-even">
+    <thead>
+      <tr>
+        <th><%= t '.name' %></th>
+        <th><%= t '.mapping_state' %></th>
+        <th><%= t '.freshbooks_project' %></th>
+        <th><%= t '.action' %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% projects.each do |project| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td class="name"><%= link_to project.name, project_path(project) %></td>
+          <td class="mapping-state"><%= project.freshbooks_project_mapping.state %></td>
+
+          <% if project.freshbooks_project_mapping.internal? then %>
+
+          <td></td>
+          <td>
+            <div class="freshbooks-button-group">
+              <%= button_to t('freshbooks_projects.mark_associable'), mark_associable_freshbooks_project_path(id: project.id), method: :post, class: "freshbooks-button"%>
+            </div>
+          </td>
+
+        <% elsif project.freshbooks_project_mapping.unmapped? then %>
+            <%= form_tag(associate_freshbooks_project_path(id: project.id)) do %>
+            <td>
+              <%= select_tag(:freshbooks_project_id, raw(options)) %>
+            </td>
+            <td>
+              <div class="freshbooks-button-group">
+                <%= submit_tag t('freshbooks_projects.associate'), class: "freshbooks-button"  %>
+            <% end %>
+                <%= button_to t('freshbooks_projects.mark_internal'), mark_internal_freshbooks_project_path(id: project.id), method: :post, class: "freshbooks-button"%>
+              </div>
+            </td>
+
+          <% elsif project.freshbooks_project_mapping.mapped? then %>
+            <td>
+              <%= link_to project.freshbooks_project.title, project.freshbooks_project.url, target: "_blank" %>
+            </td>
+            <td>
+              <div class="freshbooks-button-group">
+                <%= button_to t('freshbooks_projects.disassociate'), disassociate_freshbooks_project_path(id: project.id), method: :post%>
+                <%= button_to t('freshbooks_projects.mark_internal'), mark_internal_freshbooks_project_path(id: project.id), method: :post, class: "freshbooks-button"%>
+              </div>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

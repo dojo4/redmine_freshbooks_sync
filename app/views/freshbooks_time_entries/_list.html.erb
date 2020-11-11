@@ -1,0 +1,57 @@
+<%= render partial: 'freshbooks/tabs', locals: { name: 'time_entries' } %>
+
+<p>
+  <% if last_synced_at then %>
+    <%= t("freshbooks.last_synchronization") %> : <%= I18n.l(last_synced_at, format: :short) %>
+  <% end %>
+</p>
+
+<%= button_to t('freshbooks_time_entries.push_all_time_entries'), push_all_freshbooks_time_entries_path %>
+
+<% if time_entries.any? %> 
+  <table class="list odd-even time-entries">
+    <thead>
+      <tr>
+        <th><%= t(".id") %></th>
+        <th><%= t(".project") %></th>
+        <th><%= t(".date") %></th>
+        <th><%= t(".user") %></th>
+        <th><%= t(".issue") %></th>
+        <th><%= t(".comment") %></th>
+        <th><%= t(".hours") %></th>
+        <th><%= t(".sync_state") %></th>
+        <th><%= t(".freshbooks_time_entry") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% time_entries.each do |time_entry| %>
+        <tr class="time-entry <%= cycle('odd', 'even') %>">
+          <td class="id"><%= link_to(time_entry.id, edit_time_entry_path(time_entry)) %></td>
+          <td class="project"><%= link_to(time_entry.project.name, project_path(time_entry.project)) %></td>
+          <td class="spent_on"><%= I18n.l time_entry.spent_on %></td>
+          <td class="user"><%= link_to(time_entry.user.name, user_path(time_entry.user)) %></td>
+          <td class="issue">
+            <% if time_entry.issue.present? then %>
+              <%= link_to("#{time_entry.issue.tracker.name} ##{time_entry.issue.id}", issue_path(time_entry.issue), class: time_entry.issue.css_classes) %>
+              : <%= time_entry.issue.subject %>
+            <% end %>
+          </td>
+          <td class="comments"><%= time_entry.comments %></td>
+          <td class="hours"><%= time_entry.hours %></td>
+          <td class="sync-state"><%= time_entry.freshbooks_time_entry.sync_state %></td>
+          <td class="link">
+            <% if time_entry.needs_freshbooks_push? then %>
+              <%= button_to(t(".push"), push_one_freshbooks_time_entry_path(time_entry)) %>
+            <% else %>
+              <%= link_to(time_entry.freshbooks_time_entry.upstream_id.to_s, time_entry.freshbooks_time_entry.url) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div>
+    You may need to <%= link_to("map projects first", freshbooks_projects_path) %>
+  </div>
+<% end %>

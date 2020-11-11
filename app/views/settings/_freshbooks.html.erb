@@ -1,0 +1,62 @@
+<h3>
+  To setup Redmine // Freshbooks Integration
+</h3>
+
+<div>
+  <ul>
+    <li>Go to <a href="https://my.freshbooks.com/#/developer" target="_blank">https://my.freshbooks.com/#/developer</a></li>
+    <li>Click the green <strong>Create an App</strong> button.</li>
+    <li>Fill out the form with the following information:
+      <ul>
+        <li><strong>Application Name:</strong> <kbd><%= Setting['app_title'] %> Redmine Freshbooks Integeration</kbd></li>
+        <li><strong>Description:</strong> <kbd>[Whatever you like]</kbd></li>
+        <li><strong>Website URL:</strong> <kbd><%= home_url %></kbd></li>
+        <li><strong>Appliation Settings URL:</strong> <kbd><%= plugin_settings_url(id: :redmine_freshbooks_sync) %></kbd></li>
+        <li><strong>Redirect URIs:</strong> <kbd><%= redirect_freshbooks_url %></kbd></li>
+      </ul>
+    </li>
+    <li>Click <strong>Save</strong> to be directed back to your
+      <a href="https://my.freshbooks.com/#/developer" target="_blank">Freshbooks Developer Page</a>
+    </li>
+    <li>Click the <kbd>&rsaquo;</kbd> to the left of your newly created app entry. It will twist open.</li>
+    <li>Copy the <strong>Client ID</strong> into the Client ID setting below.</li>
+    <li>Copy the <strong>Client Secret</strong> into the Client Secret setting below.</li>
+    <li>Click the blue <strong>Apply</strong> button at the bottom of this page.</li>
+    <li>Head over to the <%= link_to('Freshbooks module', freshbooks_path)%> to Authorize and start syncing</li>
+  </ul>
+</div>
+
+<hr />
+<%
+    client_id = @settings['client_id']
+    client_id.strip! if client_id
+    client_secret = @settings['client_secret']
+    client_secret.strip! if client_secret
+    api_endpoint = @settings['api_endpoint'] || ::Freshbooks.default_api_endpoint
+    api_endpoint.strip! if api_endpoint
+    auth_endpoint = @settings['auth_endpoint'] || ::Freshbooks.default_auth_endpoint
+    auth_endpoint.strip! if auth_endpoint
+    earliest_time_entry_date = @settings['earliest_time_entry_date'] || ::Freshbooks.default_earliest_time_entry_date
+%>
+<p>
+  <label for="settings_earliest_time_entry_date"><%= t '.earliest_time_entry_date'%></label>
+  <%= date_field_tag 'settings[earliest_time_entry_date]', earliest_time_entry_date, :size => 10 %>
+  <%= calendar_for('settings[earliest_time_entry_date]') %>
+</p>
+<p>
+  <label for="settings_client_id"><%= t '.client_id' %></label>
+  <%= text_field_tag 'settings[client_id]', client_id, :size => 65 %>
+</p>
+<p>
+  <label for="settings_client_secret"><%= t '.client_secret' %></label>
+  <%= text_field_tag 'settings[client_secret]', client_secret, :size => 65 %>
+</p>
+<p>
+  <label for="settings_api_endpoint"><%= t '.api_endpoint' %></label>
+  <%= text_field_tag 'settings[api_endpoint]', api_endpoint, :size => 65 %>
+</p>
+<p>
+  <label for="settings_auth_endpoint"><%= t '.auth_endpoint' %></label>
+  <%= text_field_tag 'settings[auth_endpoint]', auth_endpoint, :size => 65 %>
+</p>
+

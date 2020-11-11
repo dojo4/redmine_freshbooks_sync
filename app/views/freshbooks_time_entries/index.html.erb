@@ -1,0 +1,8 @@
+<%=
+  render partial: 'list',
+         layout: 'layouts/base',
+         locals: {
+           time_entries: @time_entries,
+           last_synced_at: @last_synced_at,
+         }
+%>

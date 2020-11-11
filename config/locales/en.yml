@@ -1,0 +1,69 @@
+# English strings go here for Rails i18n
+en:
+  settings:
+    freshbooks:
+      client_id: "Client ID"
+      client_secret: "Client Secret"
+      api_endpoint: "Freshbooks API Endpoint"
+      auth_endpoint: "Freshbooks Auth Endpoint"
+      earliest_time_entry_date: "Earliest Time Entry Date"
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %Z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M %p"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+  freshbooks:
+    authorize_with_freshbooks: "Authorize with Freshbooks"
+    reauthorize_with_freshbooks: "Re-Authorize with Freshbooks"
+    configuration: "Configuration"
+    tabs:
+      identity: "Identity"
+      projects: "Projects"
+      time_entries: "Time Entries"
+    identity:
+      dashboard: "Dashboard"
+      projects: "Projects"
+      invoices: "Invoices"
+      time_tracking: "Time Tracking"
+      developer_portal: "Developer Portal"
+  freshbooks_projects:
+    sync:
+      project_synchronization_in_process: "project synchronization is in process"
+    list:
+      name: "Name"
+      freshbooks_project: "Freshbooks Project"
+      action: "Action"
+      sync_state: "Sync State"
+    select_a_project: "Select a project"
+    last_synchronization: "Last synchronization"
+    sync_projects: "Sync Projects"
+    associate: "Associate"
+    associate_notice: "%{redmine_project} associated with Freshbooks project %{freshbooks_project}"
+    please_select_a_freshbooks_project: "Please select a Freshbooks project to associate with Redmine project %{redmine_project}"
+    disassociate: "Disassociate"
+    disassociate_notice: "%{project} disassociated from all Freshbooks projects"
+    mark_internal: "Mark Internal"
+    mark_internal_notice: "%{project} marked as internal"
+    mark_associable: "Mark Associable"
+    mark_associable_notice: "%{project} marked as associable"
+  freshbooks_time_entries:
+    push_all_time_entries: "Push All Time Entries"
+    list:
+      id: "ID"
+      project: "Project"
+      date: "Date"
+      user: "User"
+      issue: "Issue"
+      comment: "Comment"
+      hours: "Hours"
+      sync_state: "Sync State"
+      freshbooks: "Freshbooks"
+      push: "Push"
+      action: "Action"
+    push_all:
+      time_entry_push_is_in_progress: "Pushing all time entries is in progess"
+    push_one:
+      time_entry_push_is_in_progress: "Pushing time entry %{id} is in progess"
