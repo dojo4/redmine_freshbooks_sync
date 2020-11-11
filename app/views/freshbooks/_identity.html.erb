@@ -4,6 +4,12 @@
 <% if business.present? then %>
   <div class="content-block">
     <h3><%= business['name'] %></h3>
+
+    <ul>
+      <li>Business ID: <%= business['id'] %></li>
+      <li>Account ID: <%= business['account_id'] %></li>
+    </ul>
+
     <p>
       <%= business.dig('address', 'street') %><br />
       <%= business.dig('address', 'city') %>, <%= business.dig('address', 'province') %><br />
