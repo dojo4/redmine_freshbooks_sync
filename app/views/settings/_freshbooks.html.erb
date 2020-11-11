@@ -1,5 +1,5 @@
 <h3>
-  To setup Redmine // Freshbooks Integration
+  To setup Redmine // FreshBooks Integration
 </h3>
 
 <div>
@@ -8,7 +8,7 @@
     <li>Click the green <strong>Create an App</strong> button.</li>
     <li>Fill out the form with the following information:
       <ul>
-        <li><strong>Application Name:</strong> <kbd><%= Setting['app_title'] %> Redmine Freshbooks Integeration</kbd></li>
+        <li><strong>Application Name:</strong> <kbd><%= Setting['app_title'] %> Redmine FreshBooks Integeration</kbd></li>
         <li><strong>Description:</strong> <kbd>[Whatever you like]</kbd></li>
         <li><strong>Website URL:</strong> <kbd><%= home_url %></kbd></li>
         <li><strong>Appliation Settings URL:</strong> <kbd><%= plugin_settings_url(id: :redmine_freshbooks_sync) %></kbd></li>
@@ -16,13 +16,13 @@
       </ul>
     </li>
     <li>Click <strong>Save</strong> to be directed back to your
-      <a href="https://my.freshbooks.com/#/developer" target="_blank">Freshbooks Developer Page</a>
+      <a href="https://my.freshbooks.com/#/developer" target="_blank">FreshBooks Developer Page</a>
     </li>
     <li>Click the <kbd>&rsaquo;</kbd> to the left of your newly created app entry. It will twist open.</li>
     <li>Copy the <strong>Client ID</strong> into the Client ID setting below.</li>
     <li>Copy the <strong>Client Secret</strong> into the Client Secret setting below.</li>
     <li>Click the blue <strong>Apply</strong> button at the bottom of this page.</li>
-    <li>Head over to the <%= link_to('Freshbooks module', freshbooks_path)%> to Authorize and start syncing</li>
+    <li>Head over to the <%= link_to('FreshBooks module', freshbooks_path)%> to Authorize and start syncing</li>
   </ul>
 </div>
 

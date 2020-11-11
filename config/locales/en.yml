@@ -4,8 +4,8 @@ en:
     freshbooks:
       client_id: "Client ID"
       client_secret: "Client Secret"
-      api_endpoint: "Freshbooks API Endpoint"
-      auth_endpoint: "Freshbooks Auth Endpoint"
+      api_endpoint: "FreshBooks API Endpoint"
+      auth_endpoint: "FreshBooks Auth Endpoint"
       earliest_time_entry_date: "Earliest Time Entry Date"
   time:
     formats:
@@ -16,8 +16,8 @@ en:
     formats:
       default: "%Y-%m-%d"
   freshbooks:
-    authorize_with_freshbooks: "Authorize with Freshbooks"
-    reauthorize_with_freshbooks: "Re-Authorize with Freshbooks"
+    authorize_with_freshbooks: "Authorize with FreshBooks"
+    reauthorize_with_freshbooks: "Re-Authorize with FreshBooks"
     configuration: "Configuration"
     tabs:
       identity: "Identity"
@@ -34,17 +34,17 @@ en:
       project_synchronization_in_process: "project synchronization is in process"
     list:
       name: "Name"
-      freshbooks_project: "Freshbooks Project"
+      freshbooks_project: "FreshBooks Project"
       action: "Action"
       sync_state: "Sync State"
     select_a_project: "Select a project"
     last_synchronization: "Last synchronization"
     sync_projects: "Sync Projects"
     associate: "Associate"
-    associate_notice: "%{redmine_project} associated with Freshbooks project %{freshbooks_project}"
-    please_select_a_freshbooks_project: "Please select a Freshbooks project to associate with Redmine project %{redmine_project}"
+    associate_notice: "%{redmine_project} associated with FreshBooks project %{freshbooks_project}"
+    please_select_a_freshbooks_project: "Please select a FreshBooks project to associate with Redmine project %{redmine_project}"
     disassociate: "Disassociate"
-    disassociate_notice: "%{project} disassociated from all Freshbooks projects"
+    disassociate_notice: "%{project} disassociated from all FreshBooks projects"
     mark_internal: "Mark Internal"
     mark_internal_notice: "%{project} marked as internal"
     mark_associable: "Mark Associable"
@@ -60,7 +60,7 @@ en:
       comment: "Comment"
       hours: "Hours"
       sync_state: "Sync State"
-      freshbooks: "Freshbooks"
+      freshbooks: "FreshBooks"
       push: "Push"
       action: "Action"
     push_all:

@@ -1,5 +1,5 @@
 
-Rails.logger.info 'Starting Freshbooks Sync for Redmine'
+Rails.logger.info 'Starting FreshBooks Sync for Redmine'
 
 require_dependency 'hooks/view_layouts_base_html_head_hook'
 require_dependency 'hooks/view_projects_show_left_hook'
@@ -10,9 +10,9 @@ require_dependency 'time_entry_patch'
 require 'byebug'
 
 Redmine::Plugin.register :redmine_freshbooks_sync do
-  name 'Freshbooks Sync'
+  name 'FreshBooks Sync'
   author 'Jeremy Hinegardner'
-  description 'This is a Redmine // Freshbooks Synchronization tool'
+  description 'This is a Redmine // FreshBooks Synchronization tool'
   version '0.5.0'
   url 'https://github.com/dojo4/redmine_freshbooks_sync'
   author_url 'https://github.com/copiousfreetime'
@@ -25,5 +25,5 @@ Redmine::Plugin.register :redmine_freshbooks_sync do
     'earliest_time_entry_date' => ::Freshbooks.default_earliest_time_entry_date,
   }, :partial => 'settings/freshbooks'
 
-  menu :admin_menu, :freshbooks, { controller: 'freshbooks', action: 'show' }, caption: 'Freshbooks'
+  menu :admin_menu, :freshbooks, { controller: 'freshbooks', action: 'show' }, caption: 'FreshBooks'
 end

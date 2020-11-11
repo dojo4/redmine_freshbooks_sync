@@ -1,10 +1,10 @@
-# Freshbooks integration for Redmine
+# FreshBooks integration for Redmine
 
-Plugin for Redmine. Adds the ability to associate Redmine projects with Freshbooks
-Projects and push Redmine time entries to Freshbooks. This is exlucsively for
-the New Freshbooks as opposd to Classic Freshbooks.
+Plugin for Redmine. Adds the ability to associate Redmine projects with FreshBooks
+Projects and push Redmine time entries to FreshBooks. This is exlucsively for
+the New FreshBooks as opposd to Classic FreshBooks.
 
-If you are currently running Classic Freshbooks you will need to migrate to New
+If you are currently running Classic FreshBooks you will need to migrate to New
 before using this plugin.
 
 ## Install
@@ -27,56 +27,56 @@ before using this plugin.
 These instructions are also available on your redmine instance in the
 configuration settings for this plugin.  Head over to `https://my-redmine-instance/settings/plugin/redmine_freshbooks_sync`
 
-1. Go to the [Freshbooks Developer Portal](https://my.freshbooks.com/#/developer) and click the green **Create an App** button
+1. Go to the [FreshBooks Developer Portal](https://my.freshbooks.com/#/developer) and click the green **Create an App** button
 2. Fill out the form with the following information
   * Application Name: `My company Redmine`
-  * Description: `Synchronize Redmine projects and time entries with Freshbooks`
+  * Description: `Synchronize Redmine projects and time entries with FreshBooks`
   * Website URL: `https://my-redmine-instance-hostname`
   * Application Settings URL: `https://my-redmine-instance-hostname/settings/plugin/redmine_freshbooks_sync`
   * Redirect URL: `https://my-redmine-instance-hostname/freshbooks/redirect`
-3. Click **Save** to be directed back to your Freshbooks Developer Page
+3. Click **Save** to be directed back to your FreshBooks Developer Page
 4. Twist open the newly created app entry.
 5. Copy the **Client ID** into the Client ID field of the plugin settings.
 6. Copy the **Client Secret** into the Client Secret field of the plugin settings.
 7. Set the **Earliest Time Entry Date** to the earliest date to start pushing
-   time entries to Freshbooks. It defaults to the first of the current month.
+   time entries to FreshBooks. It defaults to the first of the current month.
 7. Save your settings
-8. Click on **Freshbooks** in the **Administration** menu to go to the Freshbooks module.
-9. Click on the blue **Authorize with Freshbooks** button to do the OAuth 2.0
+8. Click on **FreshBooks** in the **Administration** menu to go to the FreshBooks module.
+9. Click on the blue **Authorize with FreshBooks** button to do the OAuth 2.0
    login. This will save a token and you generally shouldn't have to do this
    again. If the button shows up again, just press it.
 
 ## Setup Synchronization
 
-In the Freshbooks module you will see 3 tabs **Identity**, **Projects**, and
+In the FreshBooks module you will see 3 tabs **Identity**, **Projects**, and
 **Time Entries**.
 
-* You'll want to setup initial associations between Redmine projects and Freshbooks
+* You'll want to setup initial associations between Redmine projects and FreshBooks
   projects in the **Projects** tab.
 * Then Check the **Time Entries** tab to do an initial push of existing time 
-  entries to Freshbooks
+  entries to FreshBooks
 * After than, the only maintenance that should be necessary is when new projects
-  are created in Redmine and Freshbooks and the new associations need to be
+  are created in Redmine and FreshBooks and the new associations need to be
   setup.
 
 ### Identity Tab
 
-This page just shows your identity in Freshbooks. The left side should show your
-account name in Freshbooks and your mailing address in Freshbooks.
+This page just shows your identity in FreshBooks. The left side should show your
+account name in FreshBooks and your mailing address in FreshBooks.
 
-The Right side are a few handy deep links into Freshbooks.
+The Right side are a few handy deep links into FreshBooks.
 
 ### Projects tab
 
 The first thing you will want to do is push the **Sync Projects** button, this
-will start pulling a list all the active projects from Freshbooks to your
+will start pulling a list all the active projects from FreshBooks to your
 redmine instance and setting up a table for you to associate Redmine Projects
-with Freshbooks Projects.
+with FreshBooks Projects.
 
 Reload this page until **Last Synchronization** appears at the top of
 the page.
 
-Now you can start associating Redmine Projects with Freshbooks Projects.
+Now you can start associating Redmine Projects with FreshBooks Projects.
 
 The table columns are:
 
@@ -84,23 +84,23 @@ The table columns are:
     the Redmine project page.
 * **Mapping State** - the state of the redmine project mapping. This can be
     **internal**, **unmapped**, **mapped**. Internal projects are those that are
-    only in Redmine and not associate with Freshbooks projects.
-* **Freshbooks Project** - this shows the currently mapped freshbooks project,
+    only in Redmine and not associate with FreshBooks projects.
+* **FreshBooks Project** - this shows the currently mapped freshbooks project,
     or a dropdown list of freshbooks projects to potentially associate. Clicking
-    on the linked name will take you to the Freshbooks project page.
+    on the linked name will take you to the FreshBooks project page.
 * **Action** - these are the various actions that you can take for that row.
-  * **Associate** - Select a Freshbooks Project from the dropdown and press this
-      button to associate the Redmine project with the Freshbooks project from
+  * **Associate** - Select a FreshBooks Project from the dropdown and press this
+      button to associate the Redmine project with the FreshBooks project from
       the dropdown.
   * **Mark Internal** - Mark this Redmine project as internal only and do not
-      associate it with a Freshbooks project.
+      associate it with a FreshBooks project.
   * **Mark Associable** - this only shows up on projects marked internal.
       Pressing this button will remove the internal flag and allow the Redmine
-      project to be associated with a Freshbooks project.
+      project to be associated with a FreshBooks project.
 
 ### Time Entries
 
-This tab shows all the Time Entries that are pushed to Freshbooks and their
+This tab shows all the Time Entries that are pushed to FreshBooks and their
 current state.
 
 At the top is the last time time entries were synced.
