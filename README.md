@@ -1,7 +1,7 @@
 # FreshBooks integration for Redmine
 
 Plugin for Redmine. Adds the ability to associate Redmine projects with FreshBooks
-Projects and push Redmine time entries to FreshBooks. This is exlucsively for
+Projects and push Redmine time entries to FreshBooks. This is exclusively for
 the New FreshBooks as opposd to Classic FreshBooks.
 
 If you are currently running Classic FreshBooks you will need to migrate to New
