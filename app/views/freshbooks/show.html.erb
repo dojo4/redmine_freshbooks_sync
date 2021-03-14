@@ -1,1 +1,3 @@
-<%= render partial: 'freshbooks/identity', locals: { business: @business }, layout: 'layouts/base' %>
+<%= render partial: 'freshbooks/header', locals: { name: 'identity' } %>
+<%= render partial: 'freshbooks/identity', locals: { business: @business } %>
+

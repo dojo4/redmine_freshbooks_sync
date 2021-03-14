@@ -1,6 +1,7 @@
+<%= render partial: 'freshbooks/header', locals: { name: 'projects' } %>
+
 <%=
   render partial: 'list',
-         layout: 'layouts/base',
          locals: {
            projects: @projects,
            freshbooks_projects: @freshbooks_projects,
