@@ -9,11 +9,13 @@ require_dependency 'time_entry_patch'
 
 require 'byebug'
 
+VERSION = "0.5.0"
+
 Redmine::Plugin.register :redmine_freshbooks_sync do
   name 'FreshBooks Sync'
   author 'Jeremy Hinegardner'
   description 'This is a Redmine // FreshBooks Synchronization tool'
-  version '0.5.0'
+  version VERSION
   url 'https://github.com/dojo4/redmine_freshbooks_sync'
   author_url 'https://github.com/copiousfreetime'
 
