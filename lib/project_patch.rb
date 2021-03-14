@@ -20,6 +20,11 @@ module ProjectPatch
         freshbooks_project.upstream_id
       end
 
+      def freshbooks_client_id
+        return nil unless freshbooks_project
+        freshbooks_project.client_id
+      end
+
       def ensure_freshbooks_project_mapping
         return if freshbooks_project_mapping.present?
         self.create_freshbooks_project_mapping

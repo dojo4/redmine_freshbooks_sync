@@ -8,12 +8,23 @@ class FreshbooksTimeEntryPushJob < FreshbooksSyncJob
 
   def push_time_entry(time_entry)
     client = ::Freshbooks::Client.default
-    project_id = time_entry.project.freshbooks_upstream_id
-    started_at = time_entry.spent_on.to_time.utc
+
+    time_entry_user = time_entry.user
+    user_time_zone = time_entry_user.time_zone
+
+    freshbooks_project = time_entry.project.freshbooks_project
+
+    project_id = freshbooks_project.upstream_id
+    client_id  = freshbooks_project.client_id
+
+    # timzone conversion issue - Internally in the JSON api - all times appear
+    # to be in UTC - but when the are displayed in the UI they are converted to
+    # the local timezone of the business
+    started_at = time_entry.spent_on.in_time_zone(user_time_zone).midday
     duration   = ::ActiveSupport::Duration.hours(time_entry.hours).to_i
     note_io    = StringIO.new
 
-    note_io.puts "Time Entry for #{time_entry.user.name}"
+    note_io.puts "Time Entry for #{time_entry_user.name}"
     note_io.puts " * #{Rails.application.routes.url_helpers.edit_time_entry_url(time_entry, host: Setting[:host_name])}"
 
     if time_entry.issue then
@@ -33,9 +44,11 @@ class FreshbooksTimeEntryPushJob < FreshbooksSyncJob
 
     if time_entry_id = time_entry.freshbooks_time_entry.upstream_id then
       result = client.update_time_entry(time_entry_id: time_entry_id, project_id: project_id,
+                                        client_id: client_id,
                                         started_at: started_at, duration: duration, note: note)
     else
-      result = client.create_time_entry(project_id: project_id, started_at: started_at, duration: duration, note: note)
+      result = client.create_time_entry(project_id: project_id, client_id: client_id,
+                                        started_at: started_at, duration: duration, note: note)
     end
 
     freshbooks_time_entry = time_entry.freshbooks_time_entry

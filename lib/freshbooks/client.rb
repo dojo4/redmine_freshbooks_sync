@@ -108,11 +108,12 @@ module Freshbooks
       all_pages("/projects/business/#{business_id}/projects", %w[projects], params: params, content_type: nil)
     end
 
-    def create_time_entry(project_id:, started_at:, duration:, note:)
+    def create_time_entry(project_id:, client_id:, started_at:, duration:, note:)
       json = {
         time_entry: {
           billable: true,
           project_id: project_id,
+          client_id: client_id,
           started_at: started_at.utc.iso8601,
           duration: duration.to_i,
           is_logged: true,
@@ -122,11 +123,12 @@ module Freshbooks
       response = api_post_request("/timetracking/business/#{business_id}/time_entries", json: json)
     end
 
-    def update_time_entry(time_entry_id:, project_id:, started_at:, duration:, note:)
+    def update_time_entry(time_entry_id:, project_id:, client_id:, started_at:, duration:, note:)
       json = {
         time_entry: {
           billable: true,
           project_id: project_id,
+          client_id: client_id,
           started_at: started_at.utc.iso8601,
           duration: duration.to_i,
           is_logged: true,
