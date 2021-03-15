@@ -1,10 +1,9 @@
-<%= render partial: 'freshbooks/tabs', locals: { name: 'time_entries' } %>
-
-<p>
-  <% if last_synced_at then %>
+<hr />
+<% if last_synced_at then %>
+  <p>
     <%= t("freshbooks.last_synchronization") %> : <%= I18n.l(last_synced_at, format: :short) %>
-  <% end %>
-</p>
+  </p>
+<% end %>
 
 <%= button_to t('freshbooks_time_entries.push_all_time_entries'), push_all_freshbooks_time_entries_path %>
 

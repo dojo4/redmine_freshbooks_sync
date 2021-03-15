@@ -1,8 +1,19 @@
-<%=
-  render partial: 'list',
-         layout: 'layouts/base',
-         locals: {
-           time_entries: @time_entries,
-           last_synced_at: @last_synced_at,
-         }
-%>
+<%= render partial: 'freshbooks/header', locals: { name: 'time_entries' } %>
+
+<%= form_tag(freshbooks_time_entries_path, :method => :get, :id => 'query_form') do %>
+  <%= render :partial => 'freshbooks/query_form' %>
+<% end %>
+
+<% if @query.valid? && @time_entries.any? %>
+  <%= render_query_totals(@query) %>
+  <%=
+    render partial: 'list',
+           locals: {
+             time_entries: @time_entries,
+             last_synced_at: @last_synced_at,
+           }
+  %>
+<% elsif @query.valid? && @time_entries.empty? %>
+    <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>
+

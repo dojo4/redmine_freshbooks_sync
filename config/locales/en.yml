@@ -67,3 +67,4 @@ en:
       time_entry_push_is_in_progress: "Pushing all time entries is in progess"
     push_one:
       time_entry_push_is_in_progress: "Pushing time entry %{id} is in progess"
+  field_sync_state: "Sync State"

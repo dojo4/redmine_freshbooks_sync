@@ -1,7 +1,17 @@
 class FreshbooksTimeEntriesController < FreshbooksBaseController
+
+  helper :queries
+  include ::QueriesHelper
+
   def index
-    scope = ::TimeEntry.for_freshbooks
-    @time_entries = scope.order(spent_on: :desc).to_a
+    retrieve_time_entry_query
+    scope = time_entry_scope.
+      preload(:issue => [:project, :tracker, :status, :assigned_to, :priority]).
+      preload(:project, :user)
+
+    @time_entry_count = scope.count
+    @time_entry_pages = Paginator.new @time_entry_count, per_page_option, params['page']
+    @time_entries = scope.offset(@time_entry_pages.offset).limit(@time_entry_pages.per_page).to_a
     @time_entries.each { |t| t.ensure_freshbooks_time_entry }
     @last_synced_at = ::FreshbooksTimeEntry.maximum(:synced_at)
   end
@@ -13,9 +23,17 @@ class FreshbooksTimeEntriesController < FreshbooksBaseController
   end
 
   def push_one
-    entry = TimeEntry.find_by(id: params[:id])
+    entry = ::TimeEntry.find_by(id: params[:id])
     ::FreshbooksTimeEntryPushJob.perform_later(entry)
     flash[:notice] = t('.time_entry_push_is_in_progress', id: entry.id)
     redirect_to freshbooks_time_entries_path
+  end
+
+  def time_entry_scope(options={})
+    @query.results_scope(options)
+  end
+
+  def retrieve_time_entry_query
+    retrieve_query(::FreshbooksTimeEntryQuery, false, :defaults => @default_columns_names)
   end
 end
