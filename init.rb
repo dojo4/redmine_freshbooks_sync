@@ -9,7 +9,7 @@ require_dependency 'time_entry_patch'
 
 require 'byebug'
 
-VERSION = "0.5.1"
+VERSION = "0.6.0"
 
 Redmine::Plugin.register :redmine_freshbooks_sync do
   name 'FreshBooks Sync'
