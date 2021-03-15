@@ -49,6 +49,7 @@
       <% end %>
     </tbody>
   </table>
+  <span class="pagination"><%= pagination_links_full @time_entry_pages, @time_entry_count %></span>
 <% else %>
   <div>
     You may need to <%= link_to("map projects first", freshbooks_projects_path) %>
