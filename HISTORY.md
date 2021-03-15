@@ -1,5 +1,9 @@
 # Redmine FreshBooks Sync
 
+## Version 0.6.1
+
+* Fix bug with ordering and invalid join for listing time entries
+
 ## Version 0.6.0
 
 * Implement query filtering of time entries in freshbooks module

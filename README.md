@@ -12,10 +12,10 @@ before using this plugin.
   1. download and install the plugin from the [releases page](https://github.com/dojo4/redmine_freshbooks_sync/releases).
       ```sh
       cd <REDMINE_ROOT>/plugins
-      curl -L https://github.com/dojo4/redmine_freshbooks_sync/archive/v0.6.0.tar.gz -o redmine_freshbooks_sync-0.6.0.tgz
-      tar zxf redmine_freshbooks_sync-0.6.0.tgz
-      mv redmine_freshbooks_sync-0.6.0 redmine_freshbooks_sync
-      rm redmine_freshbooks_sync-0.6.0.tgz
+      curl -L https://github.com/dojo4/redmine_freshbooks_sync/archive/v0.6.1.tar.gz -o redmine_freshbooks_sync-0.6.1.tgz
+      tar zxf redmine_freshbooks_sync-0.6.1.tgz
+      mv redmine_freshbooks_sync-0.6.1 redmine_freshbooks_sync
+      rm redmine_freshbooks_sync-0.6.1.tgz
       ```
   2. In the redmine root folder:
      * `bundle install`
@@ -26,14 +26,14 @@ before using this plugin.
   1. download and the plugin from the [releases page](https://github.com/dojo4/redmine_freshbooks_sync/releases).
       ```sh
       cd <REDMINE_ROOT>/plugins
-      curl -L https://github.com/dojo4/redmine_freshbooks_sync/archive/v0.6.0.tar.gz -o redmine_freshbooks_sync-0.6.0.tgz
-      tar zxf redmine_freshbooks_sync-0.6.0.tgz
-      rm redmine_freshbooks_sync-0.6.0.tgz
+      curl -L https://github.com/dojo4/redmine_freshbooks_sync/archive/v0.6.1.tar.gz -o redmine_freshbooks_sync-0.6.1.tgz
+      tar zxf redmine_freshbooks_sync-0.6.1.tgz
+      rm redmine_freshbooks_sync-0.6.1.tgz
       ```
   2. Move the old version out of the way and move the new version into place
       ```
       mv redmine_freshbooks_sync redmine_freshbooks_sync.previous
-      mv redmine_freshbooks_sync-0.6.0 redmine_freshbooks_sync
+      mv redmine_freshbooks_sync-0.6.1 redmine_freshbooks_sync
       ```
   3. Do your tests to make sure all looks good
   4. Remove the old version
