@@ -72,8 +72,6 @@ class FreshbooksTimeEntryQuery < ::Query
   def base_scope
     TimeEntry.visible.
       for_freshbooks.
-      joins(:project, :user, :freshbooks_time_entry).
-      includes(:project, :user, :freshbooks_time_entry).
       references(:project, :user, :freshbooks_time_entry).
       left_join_issue.
       where(statement)
