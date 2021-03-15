@@ -11,8 +11,8 @@ module TimeEntryPatch
       after_save :submit_freshbooks_push_job
 
       scope :for_freshbooks, lambda {
-        spent_on_start = ::Setting.plugin_redmine_freshbooks_sync['earliest_time_entry_date'].to_time
-        where("spent_on > ?", spent_on_start.beginning_of_day)
+        spent_on_start = ::Setting.plugin_redmine_freshbooks_sync['earliest_time_entry_date'].to_date
+        where("spent_on >= ?", spent_on_start)
          .includes(:project, :freshbooks_time_entry, :user, issue: [:tracker, :status, :priority] )
          .joins(project: :freshbooks_project_mapping)
          .where("freshbooks_project_mappings.state = ?", ::FreshbooksProjectMapping::MAPPED)
