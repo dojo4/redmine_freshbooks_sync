@@ -6,7 +6,7 @@ module TimeEntryPatch
   def self.included(base)
     base.send(:include, InstanceMethods)
     base.class_eval do
-      has_one :freshbooks_time_entry
+      has_one :freshbooks_time_entry, dependent: :nullify
       after_save :ensure_freshbooks_time_entry
       after_save :submit_freshbooks_push_job
 
