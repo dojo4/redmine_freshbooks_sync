@@ -9,6 +9,7 @@ module TimeEntryPatch
       has_one :freshbooks_time_entry, dependent: :nullify
       after_save :ensure_freshbooks_time_entry
       after_save :submit_freshbooks_push_job
+      before_destroy :submit_freshbooks_delete_job
 
       scope :for_freshbooks, lambda {
         spent_on_start = ::Setting.plugin_redmine_freshbooks_sync['earliest_time_entry_date'].to_date
@@ -29,6 +30,12 @@ module TimeEntryPatch
 
     def submit_freshbooks_push_job
       ::FreshbooksTimeEntryPushJob.perform_later(self)
+    end
+
+    def submit_freshbooks_delete_job
+      return unless freshbooks_time_entry.present?
+      freshbooks_time_entry.update(sync_state: ::FreshbooksTimeEntry::PENDING_DELETE)
+      ::FreshbooksTimeEntryDeleteJob.perform_later(freshbooks_time_entry)
     end
 
     def needs_freshbooks_push?

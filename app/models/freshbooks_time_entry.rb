@@ -4,8 +4,11 @@ class FreshbooksTimeEntry < ::ActiveRecord::Base
 
   PENDING = 'pending'
   PUSHED  = 'pushed'
+  PENDING_DELETE = 'pending_delete'
+  DELETED = 'deleted'
 
-  STATES = [ PENDING, PUSHED ]
+  STATES = [ PENDING, PUSHED, PENDING_DELETE, DELETED ]
+  REMOVED_STATES = [ PENDING_DELETE, DELETED ]
 
   def pending?
     PENDING == self.sync_state
@@ -13,6 +16,14 @@ class FreshbooksTimeEntry < ::ActiveRecord::Base
 
   def pushed?
     PUSHED == self.sync_state
+  end
+
+  def pending_delete?
+    PENDING_DELETE == self.sync_state
+  end
+
+  def deleted?
+    DELETED == self.sync_state
   end
 
   def url

@@ -138,6 +138,10 @@ module Freshbooks
       response = api_put_request("/timetracking/business/#{business_id}/time_entries/#{time_entry_id}", json: json)
     end
 
+    def delete_time_entry(time_entry_id:)
+      response = api_delete_request("/timetracking/business/#{business_id}/time_entries/#{time_entry_id}")
+    end
+
     def all_pages(path, dig_path, params: {}, content_type: 'application/json')
       return [] unless connection?
       initial_result = api_get_request(path, params: params, content_type: content_type)
@@ -191,7 +195,11 @@ module Freshbooks
     end
 
     def api_put_request(path, json: {}, content_type: 'application/json')
-      api_request(path:path , method: :put, json: json, content_type: content_type)
+      api_request(path: path, method: :put, json: json, content_type: content_type)
+    end
+
+    def api_delete_request(path, json: nil, content_type: 'application/json')
+      api_request(path: path, method: :delete, content_type: content_type)
     end
 
     def api_request(path:, method:, params: nil, json: nil, content_type: 'application/json')
@@ -200,9 +208,12 @@ module Freshbooks
       if content_type then
         headers['Content-Type'] = content_type
       end
-      opts = { json: json } if json
-      opts = { params: params } if params
-      connection(headers: headers).send(method, api_uri.join(path), opts).parse('application/json')
+      opts = {}
+      opts.merge!({ json: json }) if json
+      opts.merge!({ params: params }) if params
+      response = connection(headers: headers).send(method, api_uri.join(path), opts)
+      return nil if response.body.empty?
+      response.parse('application/json')
     end
 
     def connection?
