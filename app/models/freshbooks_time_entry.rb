@@ -10,6 +10,8 @@ class FreshbooksTimeEntry < ::ActiveRecord::Base
   STATES = [ PENDING, PUSHED, PENDING_DELETE, DELETED ]
   REMOVED_STATES = [ PENDING_DELETE, DELETED ]
 
+  scope :pending_delete, -> { where(sync_state: PENDING_DELETE) }
+
   def pending?
     PENDING == self.sync_state
   end
@@ -27,7 +29,11 @@ class FreshbooksTimeEntry < ::ActiveRecord::Base
   end
 
   def url
-    local_date = time_entry.spent_on.to_time.utc.strftime("%Y-%m-%d")
+    if time_entry.present? then
+      local_date = time_entry.spent_on.to_time.utc.strftime("%Y-%m-%d")
+    else
+      local_date = synced_at.strftime("%Y-%m-%d")
+    end
     "https://my.freshbooks.com/#/time-tracking?forceSwitch=true&timelineDay=#{local_date}"
   end
 end
