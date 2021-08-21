@@ -3,11 +3,12 @@ class FreshbooksTimeEntry < ::ActiveRecord::Base
   belongs_to :freshbooks_project, optional: true
 
   PENDING = 'pending'
+  PUSHING = 'pushing'
   PUSHED  = 'pushed'
   PENDING_DELETE = 'pending_delete'
   DELETED = 'deleted'
 
-  STATES = [ PENDING, PUSHED, PENDING_DELETE, DELETED ]
+  STATES = [ PENDING, PUSHING, PUSHED, PENDING_DELETE, DELETED ]
   REMOVED_STATES = [ PENDING_DELETE, DELETED ]
 
   scope :pending_delete, -> { where(sync_state: PENDING_DELETE) }
@@ -26,6 +27,10 @@ class FreshbooksTimeEntry < ::ActiveRecord::Base
 
   def deleted?
     DELETED == self.sync_state
+  end
+
+  def pushing?
+    PUSHING == self.sync_state
   end
 
   def url
