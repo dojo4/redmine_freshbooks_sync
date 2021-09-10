@@ -48,7 +48,6 @@ class FreshbooksTimeEntryPushJob < FreshbooksSyncJob
                                         started_at: started_at, duration: duration, note: note)
     else
       time_entry.freshbooks_time_entry.with_lock do
-        byebug
         if time_entry.freshbooks_time_entry.pending? then
           time_entry.freshbooks_time_entry.update(sync_state: ::FreshbooksTimeEntry::PUSHING,
                                                   synced_at: Time.now.utc)
