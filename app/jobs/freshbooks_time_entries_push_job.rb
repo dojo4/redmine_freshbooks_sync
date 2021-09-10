@@ -10,7 +10,7 @@ class FreshbooksTimeEntriesPushJob < FreshbooksSyncJob
     end
 
     ::FreshbooksTimeEntry.pending_delete.each do |freshbooks_time_entry|
-      Rails.logger.info "Deleging freshbooks time entry #{freshbooks_time_entry.id} #{freshbooks_time_entry.sync_state}"
+      Rails.logger.info "Deleting freshbooks time entry #{freshbooks_time_entry.id} #{freshbooks_time_entry.sync_state}"
       FreshbooksTimeEntryDeleteJob.new.delete_freshbooks_time_entry(freshbooks_time_entry)
     end
   end
