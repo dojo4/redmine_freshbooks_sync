@@ -2,7 +2,8 @@ require 'stringio'
 class FreshbooksTimeEntryPushJob < FreshbooksSyncJob
   queue_as :freshbooks
 
-  def perform(time_entry)
+  def perform(time_entry_id)
+    time_entry = ::TimeEntry.find(time_entry_id)
     push_time_entry(time_entry)
   end
 
@@ -47,15 +48,23 @@ class FreshbooksTimeEntryPushJob < FreshbooksSyncJob
                                         client_id: client_id,
                                         started_at: started_at, duration: duration, note: note)
     else
-      result = client.create_time_entry(project_id: project_id, client_id: client_id,
-                                        started_at: started_at, duration: duration, note: note)
+      time_entry.freshbooks_time_entry.with_lock do
+        if time_entry.freshbooks_time_entry.pending? then
+          time_entry.freshbooks_time_entry.update(sync_state: ::FreshbooksTimeEntry::PUSHING,
+                                                  synced_at: Time.now.utc)
+          result = client.create_time_entry(project_id: project_id, client_id: client_id,
+                                            started_at: started_at, duration: duration, note: note)
+        end
+      end
     end
 
     freshbooks_time_entry = time_entry.freshbooks_time_entry
-    upstream_data = result['time_entry']
-    freshbooks_time_entry.update(upstream_id: upstream_data['id'],
-                                 upstream_raw: upstream_data,
-                                 sync_state: ::FreshbooksTimeEntry::PUSHED,
-                                 synced_at: Time.now.utc)
+    if result then
+      upstream_data = result['time_entry']
+      freshbooks_time_entry.update(upstream_id: upstream_data['id'],
+                                   upstream_raw: upstream_data,
+                                   sync_state: ::FreshbooksTimeEntry::PUSHED,
+                                   synced_at: Time.now.utc)
+    end
   end
 end

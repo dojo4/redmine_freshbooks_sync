@@ -6,13 +6,24 @@
 
 <% if @query.valid? && @time_entries.any? %>
   <%= render_query_totals(@query) %>
-  <%=
-    render partial: 'list',
-           locals: {
-             time_entries: @time_entries,
-             last_synced_at: @last_synced_at,
-           }
-  %>
+  <% Rails.logger.info "Queryied class -- #{@query.queried_class}" %>
+  <% if @query.queried_class == ::TimeEntry then %>
+    <%=
+      render partial: 'list',
+             locals: {
+               time_entries: @time_entries,
+               last_synced_at: @last_synced_at,
+             }
+    %>
+  <% else %>
+    <%=
+      render partial: 'removed_list',
+              locals: {
+                freshbooks_time_entries: @time_entries,
+                last_synced_at: @last_synced_at,
+                }
+    %>
+  <% end %>
 <% elsif @query.valid? && @time_entries.empty? %>
     <p class="nodata"><%= l(:label_no_data) %></p>
 <% end %>

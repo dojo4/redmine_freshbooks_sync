@@ -51,6 +51,8 @@ en:
     mark_associable_notice: "%{project} marked as associable"
   freshbooks_time_entries:
     push_all_time_entries: "Push All Time Entries"
+    removed_list:
+      push: "Push"
     list:
       id: "ID"
       project: "Project"
@@ -67,4 +69,6 @@ en:
       time_entry_push_is_in_progress: "Pushing all time entries is in progess"
     push_one:
       time_entry_push_is_in_progress: "Pushing time entry %{id} is in progess"
+    delete_one:
+      time_entry_delete_is_in_progress: "Push delete for time entry %{id} is in progress"
   field_sync_state: "Sync State"

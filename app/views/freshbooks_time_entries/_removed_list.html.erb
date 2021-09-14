@@ -1,0 +1,42 @@
+<hr />
+<% if last_synced_at then %>
+  <p>
+    <%= t("freshbooks.last_synchronization") %> : <%= I18n.l(last_synced_at, format: :short) %>
+  </p>
+<% end %>
+
+<%= button_to t('freshbooks_time_entries.push_all_time_entries'), push_all_freshbooks_time_entries_path %>
+
+<% if freshbooks_time_entries.any? %> 
+  <table class="list odd-even time-entries">
+    <thead>
+      <tr>
+        <th><%= t(".id") %></th>
+        <th><%= t(".freshbooks_time_entry") %></th>
+        <th><%= t(".date") %></th>
+        <th><%= t(".sync_state") %></th>
+        <th><%= t(".body") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% freshbooks_time_entries.each do |time_entry| %>
+        <tr class="time-entry <%= cycle('odd', 'even') %>">
+          <td class="id"><%= time_entry.id %></td>
+          <td><%= link_to(time_entry.upstream_id.to_s, time_entry.url, target: "_blank") %>
+            <% if time_entry.pending_delete? then %>
+              <%= button_to(t(".push"), delete_one_freshbooks_time_entry_path(time_entry)) %>
+            <% end %>
+          </td>
+          <td class="synced_at"><%= I18n.l time_entry.synced_at.to_date %></td>
+          <td class="sync-state"><%= time_entry.sync_state %></td>
+          <td class="comments"><%= time_entry.upstream_raw %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <span class="pagination"><%= pagination_links_full @time_entry_pages, @time_entry_count %></span>
+<% else %>
+  <div>
+    You may need to <%= link_to("map projects first", freshbooks_projects_path) %>
+  </div>
+<% end %>

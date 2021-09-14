@@ -11,6 +11,7 @@ resource :freshbooks, only: %i[ show ] do
 
       member do
         post 'push_one'
+        post 'delete_one'
       end
     end
 

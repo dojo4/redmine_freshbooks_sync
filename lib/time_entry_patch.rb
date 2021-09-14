@@ -6,9 +6,10 @@ module TimeEntryPatch
   def self.included(base)
     base.send(:include, InstanceMethods)
     base.class_eval do
-      has_one :freshbooks_time_entry
+      has_one :freshbooks_time_entry, dependent: :nullify
       after_save :ensure_freshbooks_time_entry
       after_save :submit_freshbooks_push_job
+      before_destroy :submit_freshbooks_delete_job
 
       scope :for_freshbooks, lambda {
         spent_on_start = ::Setting.plugin_redmine_freshbooks_sync['earliest_time_entry_date'].to_date
@@ -28,7 +29,16 @@ module TimeEntryPatch
     end
 
     def submit_freshbooks_push_job
-      ::FreshbooksTimeEntryPushJob.perform_later(self)
+      ::FreshbooksTimeEntryPushJob.perform_later(self.id)
+    end
+
+    def submit_freshbooks_delete_job
+      return unless freshbooks_time_entry.present?
+      freshbooks_time_entry.update(sync_state: ::FreshbooksTimeEntry::PENDING_DELETE)
+      # delaying a few seconds since this is called before the destroy which
+      # means the freshbooks time entry hasn't had it state updated yet -
+      # because db transaction. So delay a few seconds to make sure its updated
+      ::FreshbooksTimeEntryDeleteJob.set(wait: 5.seconds).perform_later(freshbooks_time_entry.id)
     end
 
     def needs_freshbooks_push?
