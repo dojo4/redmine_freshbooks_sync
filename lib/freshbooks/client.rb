@@ -142,6 +142,14 @@ module Freshbooks
       response = api_delete_request("/timetracking/business/#{business_id}/time_entries/#{time_entry_id}")
     end
 
+    def list_time_entries(started_from:, started_to: Time.now.utc)
+      params = {
+        started_from: started_from.utc.iso8601,
+        started_to: started_to.utc.iso8601
+      }
+      response = api_get_request("/timetracking/business/#{business_id}/time_entries", params: params)
+    end
+
     def all_pages(path, dig_path, params: {}, content_type: 'application/json')
       return [] unless connection?
       initial_result = api_get_request(path, params: params, content_type: content_type)
