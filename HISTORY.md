@@ -1,5 +1,10 @@
 # Redmine FreshBooks Sync
 
+## Version 0.7.0
+
+* Fix bug with deleted time entries
+* Fix bug with rare multiple posting of time entrie to freshbooks
+
 ## Version 0.6.1
 
 * Fix bug with ordering and invalid join for listing time entries
