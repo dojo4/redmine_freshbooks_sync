@@ -35,7 +35,10 @@ module TimeEntryPatch
     def submit_freshbooks_delete_job
       return unless freshbooks_time_entry.present?
       freshbooks_time_entry.update(sync_state: ::FreshbooksTimeEntry::PENDING_DELETE)
-      ::FreshbooksTimeEntryDeleteJob.perform_later(freshbooks_time_entry.id)
+      # delaying a few seconds since this is called before the destroy which
+      # means the freshbooks time entry hasn't had it state updated yet -
+      # because db transaction. So delay a few seconds to make sure its updated
+      ::FreshbooksTimeEntryDeleteJob.set(wait: 5.seconds).perform_later(freshbooks_time_entry.id)
     end
 
     def needs_freshbooks_push?
