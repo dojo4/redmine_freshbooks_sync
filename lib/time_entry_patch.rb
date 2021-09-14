@@ -29,13 +29,13 @@ module TimeEntryPatch
     end
 
     def submit_freshbooks_push_job
-      ::FreshbooksTimeEntryPushJob.perform_later(self)
+      ::FreshbooksTimeEntryPushJob.perform_later(self.id)
     end
 
     def submit_freshbooks_delete_job
       return unless freshbooks_time_entry.present?
       freshbooks_time_entry.update(sync_state: ::FreshbooksTimeEntry::PENDING_DELETE)
-      ::FreshbooksTimeEntryDeleteJob.perform_later(freshbooks_time_entry)
+      ::FreshbooksTimeEntryDeleteJob.perform_later(freshbooks_time_entry.id)
     end
 
     def needs_freshbooks_push?

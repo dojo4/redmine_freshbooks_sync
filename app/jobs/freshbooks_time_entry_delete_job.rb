@@ -2,7 +2,8 @@ require 'stringio'
 class FreshbooksTimeEntryDeleteJob < FreshbooksSyncJob
   queue_as :freshbooks
 
-  def perform(freshbooks_time_entry)
+  def perform(freshbooks_time_entry_id)
+    freshbooks_time_entry = ::FreshbooksTimeEntry.find(freshbooks_time_entry_id)
     delete_freshbooks_time_entry(freshbooks_time_entry)
   end
 

@@ -30,14 +30,14 @@ class FreshbooksTimeEntriesController < FreshbooksBaseController
 
   def push_one
     entry = ::TimeEntry.find_by(id: params[:id])
-    ::FreshbooksTimeEntryPushJob.perform_later(entry)
+    ::FreshbooksTimeEntryPushJob.perform_later(entry.id)
     flash[:notice] = t('.time_entry_push_is_in_progress', id: entry.id)
     redirect_to freshbooks_time_entries_path
   end
 
   def delete_one
     entry = ::FreshbooksTimeEntry.find_by(id: params[:id])
-    ::FreshbooksTimeEntryDeleteJob.perform_later(entry)
+    ::FreshbooksTimeEntryDeleteJob.perform_later(entry.id)
     flash[:notice] = t('.time_entry_delete_is_in_progress', id: entry.id)
     redirect_to freshbooks_time_entries_path
   end

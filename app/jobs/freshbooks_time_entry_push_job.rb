@@ -2,7 +2,8 @@ require 'stringio'
 class FreshbooksTimeEntryPushJob < FreshbooksSyncJob
   queue_as :freshbooks
 
-  def perform(time_entry)
+  def perform(time_entry_id)
+    time_entry = ::TimeEntry.find(time_entry_id)
     push_time_entry(time_entry)
   end
 
